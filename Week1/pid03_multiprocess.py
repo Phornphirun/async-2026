@@ -5,11 +5,37 @@ import os
 
 # ฟังก์ชันจำลองการทำกาแฟให้ลูกค้า 1 คน
 def make_coffee(customer_name):
-    pass
+    # ดึง PID ของหน่วยปรมวลผลนี้ (วึ่งจะแยกจากกันเด็ดขาด)
+    pid = os.getpid()
+    thread_id = threading.current_thread().native_id
+    thread_name = threading.current_thread().name
+
+    print(f"{ctime()} | [PID: {pid}] [TID: {thread_id}] [Thread Name: {thread_name}] กำลังชงกาแฟให้ ลูกค้า {customer_name}...")
+    sleep(5) # บล็อกการทำงานของ Thread นี้ไว้ 5 วินาทีเต็มๆ 
+    print(f"{ctime()} | [PID: {pid}] [TID: {thread_id}] [Thread Name: {thread_name}] ลูกค้า {customer_name}: ได้รับกาแฟแล้วจ้า! เย่ๆ")
 
 def main():
-    pass
+    queue = ['A', 'B', 'C']
+    main_pid = os.getpid()
+    main_tid = threading.current_thread().native_id
 
+    print(f"{ctime()} | [Main PID: {main_pid}] [Main TID: {main_tid}] === เริ่มระบบจำลองตู้กาแฟแบบ Multi-processing ===")
+    start_time = time()
+
+    processes = []
+    #ลูปทำงานของ Thread
+    for customer in queue:
+        #สร้าง Process ใหม่แยกจากกันเด็ดขาด
+        p = multiprocessing.Process(target=make_coffee, args=(customer,))
+        processes.append(p)
+        p.start()
+
+    for p in processes:
+        p.join()
+
+    duration = time() - start_time
+    print(f"{ctime()} | ใช้เวลารวมทั้งหมด: {duration:0.2f} วินาที")
+
+# สั่งให้โปรแกรมทำงาน
 if __name__ == "__main__":
     main()
-    

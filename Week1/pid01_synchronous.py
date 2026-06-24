@@ -5,7 +5,7 @@ import threading
 # ฟังก์ชันจำลองการทำกาแฟให้ลูกค้า 1 คน
 def make_coffee(customer_name):
     # ดึง PID และ Thread ID ออกมาดู
-    pid = os.getpid
+    pid = os.getpid()
     thread_id = threading.current_thread().native_id
     thread_name = threading.current_thread().name
 
