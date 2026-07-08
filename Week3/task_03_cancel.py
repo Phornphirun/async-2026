@@ -18,6 +18,6 @@ async def main():
     
     print(f"{ctime()} Main: Changing plans, canceling the worker task now!")
     task.cancel() # Request cancellation
-    await asyncio.sleep(0.1) # Yield execution window to let worker run its except blocks
+    await asyncio.sleep(0.1) # Yield execution window to let worker run its except block
 
 asyncio.run(main())
