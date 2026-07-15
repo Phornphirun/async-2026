@@ -1,0 +1,31 @@
+import asyncio
+import httpx
+
+STUDENT_ID = "6710301020"
+BASE_URL = "http://172.16.2.117:8088"
+
+
+async def turn_on_light(client, light_id):
+    r = await client.post(
+        f"{BASE_URL}/api/{STUDENT_ID}/lights/{light_id}",
+        json={"status": "ON"}
+    )
+
+    print(f"{light_id} -> {r.status_code}")
+
+
+async def main():
+
+    async with httpx.AsyncClient() as client:
+
+        # เปิดทีละดวงตามลำดับ
+        await turn_on_light(client, "light_1")
+        await turn_on_light(client, "light_2")
+        await turn_on_light(client, "light_3")
+        await turn_on_light(client, "light_4")
+
+    print("เปิดครบทุกดวง")
+
+
+if __name__ == "__main__":
+    asyncio.run(main())

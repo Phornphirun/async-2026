@@ -1,0 +1,27 @@
+import asyncio
+import httpx
+
+STUDENT_ID = "6710301020"
+BASE_URL = "http://172.16.2.117:8088"
+
+lights = {
+    "light_1": 0.5,
+    "light_2": 1.2,
+    "light_3": 2.0,
+    "light_4": 0.8
+}
+
+async def main():
+    async with httpx.AsyncClient() as client:
+
+        # เรียงจาก Delay น้อยไปมาก
+        for light in sorted(lights, key=lights.get):
+
+            await client.post(
+                f"{BASE_URL}/api/{STUDENT_ID}/lights/{light}",
+                json={"status": "ON"}
+            )
+
+            print(light, "เปิดแล้ว")
+
+asyncio.run(main())
