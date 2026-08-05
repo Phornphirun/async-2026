@@ -55,5 +55,6 @@ async def main():
         elapsed_time = time.time() - start_time
         print(f"Finished all tasks in {elapsed_time:.2f} seconds.")
 
+
 if __name__ == "__main__":
     asyncio.run(main())
