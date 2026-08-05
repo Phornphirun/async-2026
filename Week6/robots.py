@@ -5,8 +5,8 @@ import httpx
 # ==========================================
 # 1. Configuration & Constants
 # ==========================================
-STUDENT_ID = "" 
-BASE_URL = ""
+STUDENT_ID = "6710301020" 
+BASE_URL = "http://172.16.2.117:8088"
 
 # กำหนดลำดับชิ้นส่วนและหุ่นยนต์
 PARTS = ["A", "B", "C"]
@@ -23,12 +23,16 @@ async def reset_factory(client: httpx.AsyncClient):
 
 async def grab_part(client: httpx.AsyncClient, robot_id: str, part: str):
     """สั่งให้หุ่นยนต์หยิบชิ้นส่วน 1 ชิ้น"""
+
     # TODO: เติมโค้ดส่ง POST request ไปยัง /student/{STUDENT_ID}/robot/{robot_id}/grab
     # พร้อมแนบ JSON Payload {"part": part}
-    pass
 
 async def run_robot_task(client: httpx.AsyncClient, robot_id: str):
     """สั่งให้หุ่นยนต์ 1 ตัว ทำการหยิบชิ้นส่วน A, B, และ C ตามลำดับ"""
+    print(f"[Task-{robot_id}] GET {A}")
+    await asyncio.sleep(1)  
+    
+
     # TODO: วนลูปหยิบชิ้นส่วนใน PARTS ตามลำดับเรียงกัน (Sequential inside single robot)
     pass
 
@@ -40,6 +44,13 @@ async def main():
         
         start_time = time.time()
         print("Starting Async Robot Operation...")
+
+        task = [
+        asyncio.create_task(run_robot_task("robot_1")),
+        asyncio.create_task(run_robot_task("robot_2")),
+        asyncio.create_task(run_robot_task("robot_3"))
+    ]
+        await asyncio.gather(*task)
         
         # TODO: สั่งรัน run_robot_task ของหุ่นยนต์ทั้ง 4 ตัวพร้อมกันโดยใช้ asyncio.gather
         
