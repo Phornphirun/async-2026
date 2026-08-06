@@ -10,7 +10,7 @@ BASE_URL = "http://172.16.2.117:8088"
 
 # กำหนดลำดับชิ้นส่วนและหุ่นยนต์
 PARTS = ["A", "B", "C"]
-ROBOTS = ["robot_1", "robot_2", "robot_3"]
+ROBOTS = ["robot_1", "robot_2", "robot_3, robot_4"]
 
 # ==========================================
 # 2. Async Functions Development
