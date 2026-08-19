@@ -32,7 +32,7 @@ async def hunt_coupons():
                     break
 
             except Exception as e:
-                print(f"เกิดข้อผิดพลาดในการเชื่อต่อ: {e}")
+                print(f"เกิดข้อผิดพลาดในการเชื่อมต่อ: {e}")
 
             #พักก่อนยิงรอบถัดไปเล็กน้อย
             await asyncio.sleep(0.02)
